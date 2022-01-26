@@ -1,0 +1,44 @@
+{
+    "authors": [
+        {
+            "email": "support@sms77.io",
+            "homepage": "https://www.sms77.io",
+            "name": "sms77 e.K.",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Sms77\\Bagisto\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "aliases": {},
+            "providers": [
+                "Sms77\\Bagisto\\Providers\\Sms77ServiceProvider"
+            ]
+        }
+    },
+    "keywords": [
+        "bagisto",
+        "sms",
+        "gateway"
+    ],
+    "license": "MIT",
+    "name": "sms77/bagisto",
+    "require": {
+        "php": "^7.4|^8.0",
+        "ext-json": "*",
+        "bagisto/laravel-user": "dev-master",
+        "bagisto/laravel-ui": "dev-master",
+        "bagisto/laravel-core": "dev-master"
+    },
+    "support": {
+        "docs": "https://github.com/sms77io/bagisto",
+        "email": "support@sms77.io",
+        "rss": "https://www.sms77.io/de/feed/",
+        "source": "https://github.com/sms77io/bagisto"
+    },
+    "type": "library"
+}
