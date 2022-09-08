@@ -4,6 +4,7 @@ return [
     'about_bulk' => 'Send SMS to all persons at once.',
     'api_key' => 'API Key',
     'contact_type' => 'Contact Type',
+    'debug' => 'Debug',
     'flash' => 'Flash',
     'from' => 'Sender Identifier',
     'general' => 'General',

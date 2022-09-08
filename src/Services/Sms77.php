@@ -109,7 +109,7 @@ class Sms77 {
                 if ($value) $smsParams[$key] = $value;
             }
 
-            foreach (['flash', 'performance_tracking',] as $key)
+            foreach (['debug', 'flash', 'performance_tracking',] as $key)
                 if ('on' === $request->post($key)) $smsParams[$key] = true;
 
             foreach ($requests as $req) {
