@@ -17,4 +17,5 @@ return [
     'send_sms_bulk' => 'SMS-Massenversand',
     'sms_sent' => ':msgCount SMS versandt an :receivers Empfangsziele für :cost €',
     'text' => 'Text',
+    'text_placeholder' => 'Hallo {{first_name}} {{last_name}}, als Dank für Ihre Treue erhalten Sie bei Ihrer nächsten Bestellung 10% Rabatt mit dem Code MINUS10.',
 ];

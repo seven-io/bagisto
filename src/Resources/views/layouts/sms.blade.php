@@ -92,8 +92,9 @@
                         <input
                                 class='control'
                                 data-vv-as='&quot;@lang('sms77::app.from')&quot;'
-                                name='from'
                                 id='from'
+                                name='from'
+                                placeholder='Bagisto'
                                 v-validate='{
                              max: 16,
                              regex: /^([+]?[0-9]{1,16}|[a-zA-Z0-9 \-_+/()&$!,.@]{1,11})$/
@@ -116,6 +117,7 @@
                                 data-vv-as='&quot;@lang('sms77::app.text')&quot;'
                                 id='text'
                                 name='text'
+                                placeholder='@lang('sms77::app.text_placeholder')'
                                 v-validate='`required|max:1520`'
                         >{{ old('text') }}</textarea>
 

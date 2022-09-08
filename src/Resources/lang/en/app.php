@@ -17,4 +17,5 @@ return [
     'send_sms_bulk' => 'Send Bulk SMS',
     'sms_sent' => 'Sent :msgCount SMS to :receivers recipients for :cost €',
     'text' => 'Text',
+    'text_placeholder' => 'Hello {{first_name}} {{last_name}}, as a thank you for your loyalty you will get 10% off on your next order by using the coupon code MINUS10.',
 ];
