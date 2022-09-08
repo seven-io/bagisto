@@ -10,7 +10,9 @@ Adds the functionality to send SMS via sms77.
 
 ## Installation
 
-1. Register the package as service provider by appending an entry in **config/app.php**.
+1. Retrieve the package via composer by running `composer require sms/bagisto`
+
+2. Register the package as service provider by appending an entry in **config/app.php**.
 
 ```php
 <?php
@@ -24,23 +26,10 @@ return [
 ];
 ```
 
-2. Add the package namespace as PSR-4 key in composer.json file for autoloading.
-
-```json
-{
-    "autoload": {
-        "psr-4": {
-            "Sms77\\Bagisto\\": "packages/Sms77/Bagisto/src"
-        }
-    }
-}
-```
-
 3. Execute these commands to clear the cache and migrate the database:
 
 ```
-php artisan cache:clear
-php artisan migrate
+php artisan cache:clear && php artisan migrate
 ```
 
 ## Setup
