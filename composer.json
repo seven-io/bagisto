@@ -35,10 +35,10 @@
         "bagisto/laravel-core": "dev-master"
     },
     "support": {
-        "docs": "https://github.com/sms77io/bagisto",
+        "docs": "https://github.com/seven-io/bagisto",
         "email": "support@sms77.io",
         "rss": "https://www.sms77.io/de/feed/",
-        "source": "https://github.com/sms77io/bagisto"
+        "source": "https://github.com/seven-io/bagisto"
     },
     "type": "library"
 }
