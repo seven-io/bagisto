@@ -1,8 +1,8 @@
 <?php
 
-namespace Sms77\Bagisto\Repositories;
+namespace Seven\Bagisto\Repositories;
 
-use Sms77\Bagisto\Models\Sms;
+use Seven\Bagisto\Models\Sms;
 use Webkul\Core\Eloquent\Repository;
 
 class SmsRepository extends Repository {

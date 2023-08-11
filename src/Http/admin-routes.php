@@ -1,31 +1,31 @@
 <?php
 
-use Sms77\Bagisto\Http\Controllers\Sms77Controller;
+use Seven\Bagisto\Http\Controllers\SevenController;
 
 Route::group([
     'middleware' => ['web', 'admin'],
-    'namespace' => 'Sms77\Bagisto\Http\Controllers',
+    'namespace' => 'Seven\Bagisto\Http\Controllers',
     'prefix' => 'admin',
 ], function () {
 
-    Route::group(['prefix' => 'sms77'], function () {
-        Route::get('', [Sms77Controller::class, 'index'])
-            ->name('admin.sms77.index');
-        Route::post('sms', [Sms77Controller::class, 'smsSend'])
-            ->name('admin.sms77.sms_submit');
+    Route::group(['prefix' => 'seven'], function () {
+        Route::get('', [SevenController::class, 'index'])
+            ->name('admin.seven.index');
+        Route::post('sms', [SevenController::class, 'smsSend'])
+            ->name('admin.seven.sms_submit');
     });
 
     Route::group(['prefix' => 'customers'], function () {
-        Route::group(['prefix' => 'sms77'], function () {
-            Route::get('sms/{id}', [Sms77Controller::class, 'smsCustomer'])
-                ->name('admin.sms77.sms_customer');
+        Route::group(['prefix' => 'seven'], function () {
+            Route::get('sms/{id}', [SevenController::class, 'smsCustomer'])
+                ->name('admin.seven.sms_customer');
         });
     });
 
     Route::prefix('groups')->group(function () {
-        Route::group(['prefix' => 'sms77'], function () {
-            Route::get('sms/{id}', [Sms77Controller::class, 'smsCustomerGroup'])
-                ->name('admin.sms77.sms_customer_group');
+        Route::group(['prefix' => 'seven'], function () {
+            Route::get('sms/{id}', [SevenController::class, 'smsCustomerGroup'])
+                ->name('admin.seven.sms_customer_group');
         });
     });
 });

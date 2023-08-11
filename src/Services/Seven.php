@@ -1,6 +1,6 @@
 <?php
 
-namespace Sms77\Bagisto\Services;
+namespace Seven\Bagisto\Services;
 
 use Exception;
 use GuzzleHttp\Client;
@@ -8,14 +8,14 @@ use GuzzleHttp\RequestOptions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use Sms77\Bagisto\Exceptions\UnprocessableEntityTypeException;
-use Sms77\Bagisto\Models\Sms;
+use Seven\Bagisto\Exceptions\UnprocessableEntityTypeException;
+use Seven\Bagisto\Models\Sms;
 use Webkul\Customer\Models\Customer;
 use Webkul\Customer\Repositories\CustomerRepository;
 use Webkul\Core\Models\CoreConfig;
 use Webkul\Core\Repositories\CoreConfigRepository;
 
-class Sms77 {
+class Seven {
     /** @var string|null $apiKey */
     protected ?string $apiKey;
 
@@ -40,7 +40,7 @@ class Sms77 {
         $this->coreConfigRepository = $coreConfigRepository;
         $this->apiKey = self::getApiKey();
         $this->client = new Client([
-            'base_uri' => 'https://gateway.sms77.io/api/',
+            'base_uri' => 'https://gateway.seven.io/api/',
             RequestOptions::HEADERS => [
                 'SentWith' => 'Bagisto',
                 'X-Api-Key' => $this->apiKey,
@@ -50,21 +50,21 @@ class Sms77 {
 
     private function getApiKey(): ?string {
         $coreConfig = $this->coreConfigRepository->findOneByField('code',
-            'sms77.general.settings.api_key');
+            'seven.general.settings.api_key');
 
         if ($coreConfig) {
             /** @var CoreConfig $coreConfig */
             return $coreConfig->getAttribute('value');
         }
 
-        return config('services.sms77.api_key');
+        return config('services.seven.api_key');
     }
 
     public function sms(Request $request): array {
         $persons = $this->getCustomers($request);
 
         if (empty($persons)) {
-            $error = __('sms77::app.no_recipients');
+            $error = __('seven::app.no_recipients');
             $errors[] = $error;
             session()->flash('error', $error);
         } else {
@@ -122,7 +122,7 @@ class Sms77 {
                         ->save();
                     $response = json_decode($response);
 
-                    Log::info('sms77 responded to SMS dispatch.', compact('response'));
+                    Log::info('seven responded to SMS dispatch.', compact('response'));
 
                     if (is_object($response)) {
                         $cost += (float)$response->total_price;
@@ -135,12 +135,12 @@ class Sms77 {
                 } catch (Exception $e) {
                     $error = $e->getMessage();
                     $errors[] = $error;
-                    Log::error('sms77 failed to send SMS.', compact('error'));
+                    Log::error('seven failed to send SMS.', compact('error'));
                 }
             }
 
             session()->flash('warning',
-                __('sms77::app.sms_sent', compact('cost', 'msgCount', 'receivers')));
+                __('seven::app.sms_sent', compact('cost', 'msgCount', 'receivers')));
         }
 
         return $errors;

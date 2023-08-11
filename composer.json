@@ -1,22 +1,22 @@
 {
     "authors": [
         {
-            "email": "support@sms77.io",
-            "homepage": "https://www.sms77.io",
-            "name": "sms77 e.K.",
+            "email": "support@seven.io",
+            "homepage": "https://www.seven.io",
+            "name": "seven communications GmbH & Co. KG",
             "role": "Developer"
         }
     ],
     "autoload": {
         "psr-4": {
-            "Sms77\\Bagisto\\": "src/"
+            "Seven\\Bagisto\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "aliases": {},
             "providers": [
-                "Sms77\\Bagisto\\Providers\\Sms77ServiceProvider"
+                "Seven\\Bagisto\\Providers\\SevenServiceProvider"
             ]
         }
     },
@@ -26,7 +26,7 @@
         "gateway"
     ],
     "license": "MIT",
-    "name": "sms77/bagisto",
+    "name": "seven.io/bagisto",
     "require": {
         "php": "^7.4|^8.0"
     },
@@ -35,8 +35,8 @@
     },
     "support": {
         "docs": "https://github.com/seven-io/bagisto",
-        "email": "support@sms77.io",
-        "rss": "https://www.sms77.io/de/feed/",
+        "email": "support@seven.io",
+        "rss": "https://www.seven.io/en/feed/",
         "source": "https://github.com/seven-io/bagisto"
     },
     "type": "library"

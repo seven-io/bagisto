@@ -1,12 +1,12 @@
 @extends('admin::layouts.master')
 
 @section('page_title')
-    @yield('title') - @lang('sms77::app.name')
+    @yield('title') - @lang('seven::app.name')
 @stop
 
 @section('content-wrapper')
     <div class='content full-page'>
-        <form method='POST' action='{{ route('admin.sms77.sms_submit') }}'>
+        <form method='POST' action='{{ route('admin.seven.sms_submit') }}'>
             <div class='page-header'>
                 <div class='page-title'>
                     <h1>@yield('heading')</h1>
@@ -14,7 +14,7 @@
 
                 <div class='page-action'>
                     <button type='submit' class='btn btn-lg btn-primary'>
-                        @lang('sms77::app.send_sms')
+                        @lang('seven::app.send_sms')
                     </button>
                 </div>
             </div>
@@ -30,7 +30,7 @@
 
                     <div class='control-group' :class='[errors.has(`flash`) ? `has-error` : ``]'>
                         <label for='flash'>
-                            @lang('sms77::app.flash')
+                            @lang('seven::app.flash')
                         </label>
 
                         <label class='switch'>
@@ -49,7 +49,7 @@
                     <div class='control-group'
                          :class='[errors.has(`performance_tracking`) ? `has-error` : ``]'>
                         <label for='performance_tracking'>
-                            @lang('sms77::app.performance_tracking')
+                            @lang('seven::app.performance_tracking')
                         </label>
 
                         <label class='switch'>
@@ -68,7 +68,7 @@
                     <div class='control-group'
                          :class='[errors.has(`debug`) ? `has-error` : ``]'>
                         <label for='debug'>
-                            @lang('sms77::app.debug')
+                            @lang('seven::app.debug')
                         </label>
 
                         <label class='switch'>
@@ -86,12 +86,12 @@
 
                     <div class='control-group' :class='[errors.has(`from`) ? `has-error` : ``]'>
                         <label for='from'>
-                            @lang('sms77::app.from')
+                            @lang('seven::app.from')
                         </label>
 
                         <input
                                 class='control'
-                                data-vv-as='&quot;@lang('sms77::app.from')&quot;'
+                                data-vv-as='&quot;@lang('seven::app.from')&quot;'
                                 id='from'
                                 name='from'
                                 placeholder='Bagisto'
@@ -109,15 +109,15 @@
 
                     <div class='control-group' :class='[errors.has(`text`) ? `has-error` : ``]'>
                         <label for='text' class='required'>
-                            @lang('sms77::app.text')
+                            @lang('seven::app.text')
                         </label>
 
                         <textarea
                                 class='control'
-                                data-vv-as='&quot;@lang('sms77::app.text')&quot;'
+                                data-vv-as='&quot;@lang('seven::app.text')&quot;'
                                 id='text'
                                 name='text'
-                                placeholder='@lang('sms77::app.text_placeholder')'
+                                placeholder='@lang('seven::app.text_placeholder')'
                                 v-validate='`required|max:1520`'
                         >{{ old('text') }}</textarea>
 

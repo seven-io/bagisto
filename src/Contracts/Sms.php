@@ -1,6 +1,6 @@
 <?php
 
-namespace Sms77\Bagisto\Contracts;
+namespace Seven\Bagisto\Contracts;
 
 interface Sms {
 }

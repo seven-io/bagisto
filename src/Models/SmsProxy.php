@@ -1,6 +1,6 @@
 <?php
 
-namespace Sms77\Bagisto\Models;
+namespace Seven\Bagisto\Models;
 
 use Konekt\Concord\Proxies\ModelProxy;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Sms77\Bagisto\Exceptions;
+namespace Seven\Bagisto\Exceptions;
 
 use InvalidArgumentException;
 

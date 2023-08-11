@@ -1,9 +1,9 @@
 <?php
 
-namespace Sms77\Bagisto\Models;
+namespace Seven\Bagisto\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Sms77\Bagisto\Contracts\Sms as SmsContract;
+use Seven\Bagisto\Contracts\Sms as SmsContract;
 
 class Sms extends Model implements SmsContract {
     /**
@@ -34,7 +34,7 @@ class Sms extends Model implements SmsContract {
      * The table associated with the model.
      * @var string $table
      */
-    protected $table = 'sms77_sms';
+    protected $table = 'seven_sms';
 
     /**
      * Returns the response with duplicated values removed.

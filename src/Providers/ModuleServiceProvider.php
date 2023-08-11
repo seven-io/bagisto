@@ -1,8 +1,8 @@
 <?php
 
-namespace Sms77\Bagisto\Providers;
+namespace Seven\Bagisto\Providers;
 
-use Sms77\Bagisto\Models\Sms;
+use Seven\Bagisto\Models\Sms;
 use Konekt\Concord\BaseModuleServiceProvider;
 
 class ModuleServiceProvider extends BaseModuleServiceProvider {
