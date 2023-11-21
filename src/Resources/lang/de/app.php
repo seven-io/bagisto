@@ -4,7 +4,6 @@ return [
     'about_bulk' => 'Senden Sie SMS an alle Personen auf einem Schlag.',
     'api_key' => 'API-Schlüssel',
     'contact_type' => 'Kontakt-Type',
-    'debug' => 'Debug',
     'flash' => 'Flash',
     'from' => 'Absenderkennung',
     'general' => 'Generell',

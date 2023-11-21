@@ -65,25 +65,6 @@
                         </label>
                     </div>
 
-                    <div class='control-group'
-                         :class='[errors.has(`debug`) ? `has-error` : ``]'>
-                        <label for='debug'>
-                            @lang('seven::app.debug')
-                        </label>
-
-                        <label class='switch'>
-                            <input
-                                class='control'
-                                id='debug'
-                                name='debug'
-                                type='checkbox'
-                                {{ old('debug') ? 'checked' : '' }}
-                            />
-
-                            <span class='slider round'></span>
-                        </label>
-                    </div>
-
                     <div class='control-group' :class='[errors.has(`from`) ? `has-error` : ``]'>
                         <label for='from'>
                             @lang('seven::app.from')
