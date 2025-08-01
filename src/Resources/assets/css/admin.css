@@ -1,9 +1,14 @@
-.seven-icon {
+.icon-seven:before {
+    content: "\e929";
+    background-image: url("../images/seven-48x48.png");
+}
+
+.icon-seven {
   background-image: url("../images/seven-48x48.png");
 }
 
 .menu-item {
-  .seven-icon {
+  .icon-seven {
     filter: grayscale(100%);
     height: 48px;
     width: 48px;
@@ -11,7 +16,7 @@
 }
 
 .action {
-  .seven-icon {
+  .icon-seven {
     filter: drop-shadow(10px 10px 10px #7D919A) brightness(0%);
     height: 24px;
     width: 24px;
@@ -19,7 +24,7 @@
 }
 
 .active {
-  .seven-icon, &.seven-icon {
+  .icon-seven, &.icon-seven {
     filter: invert(46%) sepia(100%) saturate(3324%) hue-rotate(177deg) brightness(97%) contrast(89%);
   }
 }

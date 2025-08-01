@@ -2,10 +2,11 @@
 
 return [
     [
-        'icon-class' => 'seven-icon',
+        'icon' => 'icon-seven',
+        'icon-class' => 'icon-seven',
         'key' => 'seven',
         'name' => 'seven',
         'route' => 'admin.seven.index',
-        'sort' => 2,
+        'sort' => 77,
     ],
 ];

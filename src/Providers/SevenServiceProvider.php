@@ -4,8 +4,8 @@ namespace Seven\Bagisto\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Event;
-use Webkul\Admin\DataGrids\CustomerDataGrid;
-use Webkul\Admin\DataGrids\CustomerGroupDataGrid;
+use Webkul\Admin\DataGrids\Customers\CustomerDataGrid;
+use Webkul\Admin\DataGrids\Customers\GroupDataGrid;
 use Webkul\Theme\ViewRenderEventManager;
 
 class SevenServiceProvider extends ServiceProvider {
@@ -16,7 +16,7 @@ class SevenServiceProvider extends ServiceProvider {
     public function boot() {
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
-        $this->loadRoutesFrom(__DIR__ . '/../Http/admin-routes.php');
+        $this->loadRoutesFrom(__DIR__ . '/../Routes/admin-routes.php');
 
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'seven');
 
@@ -32,6 +32,10 @@ class SevenServiceProvider extends ServiceProvider {
             });
 
         $this->app->register(ModuleServiceProvider::class);
+
+        Event::listen('bagisto.admin.customers.customers.view.card.notes.after', function($viewRenderEventManager) {
+            $viewRenderEventManager->addTemplate('seven::customer_view');
+        });
     }
 
     /**
@@ -41,23 +45,35 @@ class SevenServiceProvider extends ServiceProvider {
     public function register() {
         $this->app->extend(CustomerDataGrid::class,
             function (CustomerDataGrid $service) {
-                $service->addAction([
-                    'icon' => 'icon seven-icon',
+/*                $service->addAction([
+                    'icon' => 'icon-report',
                     'method' => 'GET',
-                    'route' => 'admin.seven.sms_customer',
+                    'url'    => function ($row) {
+                        return route('admin.seven.sms_customer', $row->customer_id);
+                    },
                     'title' => trans('seven::app.send_sms'),
                 ]);
+                $service->addMassAction([
+                    //'icon' => 'icon-envelope',
+                    'method' => 'GET',
+                    'url'    => function ($row) {
+                        return route('admin.seven.sms_customer', $row->customer_id);
+                    },
+                    'title' => trans('seven::app.send_sms'),
+                ]);*/
                 return $service;
             });
 
-        $this->app->extend(CustomerGroupDataGrid::class,
-            function (CustomerGroupDataGrid $service) {
-                $service->addAction([
-                    'icon' => 'icon seven-icon',
+        $this->app->extend(GroupDataGrid::class,
+            function (GroupDataGrid $service) {
+    /*            $service->addAction([
+                    'icon' => 'icon-report',
                     'method' => 'GET',
-                    'route' => 'admin.seven.sms_customer_group',
+                    'url'    => function ($row) {
+                        return route('admin.seven.sms_customer_group', $row->id);
+                    },
                     'title' => trans('seven::app.send_sms'),
-                ]);
+                ]);*/
                 return $service;
             });
 

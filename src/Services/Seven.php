@@ -16,32 +16,19 @@ use Webkul\Core\Models\CoreConfig;
 use Webkul\Core\Repositories\CoreConfigRepository;
 
 class Seven {
-    /** @var string|null $apiKey */
     protected ?string $apiKey;
 
-    /** @var Client $client */
     protected Client $client;
 
-    /** @var CustomerRepository $customerRepository */
-    protected CustomerRepository $customerRepository;
-
-    /** @var CoreConfigRepository $coreConfigRepository */
-    protected CoreConfigRepository $coreConfigRepository;
-
-    /**
-     * @param CustomerRepository $customerRepository
-     * @param CoreConfigRepository $coreConfigRepository
-     */
     public function __construct(
-        CustomerRepository   $customerRepository,
-        CoreConfigRepository $coreConfigRepository
+        protected CustomerRepository   $customerRepository,
+        protected CoreConfigRepository $coreConfigRepository
     ) {
-        $this->customerRepository = $customerRepository;
-        $this->coreConfigRepository = $coreConfigRepository;
         $this->apiKey = self::getApiKey();
         $this->client = new Client([
             'base_uri' => 'https://gateway.seven.io/api/',
             RequestOptions::HEADERS => [
+                'Accept' => 'application/json',
                 'SentWith' => 'Bagisto',
                 'X-Api-Key' => $this->apiKey,
             ],
@@ -62,6 +49,11 @@ class Seven {
 
     public function sms(Request $request): array {
         $persons = $this->getCustomers($request);
+        $validated = $request->validate([
+            'from'  => [
+                //'regex:/^([+]?[0-9]{1,16}|[a-zA-Z0-9 \-_+/()&$!,.@]{1,11})$/' // TODO
+            ],
+        ]);
 
         if (empty($persons)) {
             $error = __('seven::app.no_recipients');
@@ -102,7 +94,7 @@ class Seven {
                 'to' => $this->getCustomersNumbers(...$persons),
             ];
 
-            $smsParams = ['json' => true,];
+            $smsParams = [];
 
             foreach (['from',] as $key) {
                 $value = $request->post($key);
@@ -110,7 +102,7 @@ class Seven {
             }
 
             foreach (['flash', 'performance_tracking',] as $key)
-                if ('on' === $request->post($key)) $smsParams[$key] = true;
+                if ('1' === $request->post($key)) $smsParams[$key] = true;
 
             foreach ($requests as $req) {
                 try {
@@ -147,12 +139,16 @@ class Seven {
     }
 
     /**
-     * @param Request $request
      * @return Customer[]
      */
     protected function getCustomers(Request $request): array {
         $entityType = $request->post('entityType');
         $id = $request->post('id');
+        if (null === $id) {
+            $previousUrl = $request->session()->previousUrl();
+            $parts = explode('/', $previousUrl);
+            $id = array_pop($parts);
+        }
 
         switch ($entityType) {
             case 'customers':

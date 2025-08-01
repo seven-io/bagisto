@@ -39,5 +39,5 @@
         "rss": "https://www.seven.io/en/feed/",
         "source": "https://github.com/seven-io/bagisto"
     },
-    "type": "library"
+    "type": "bagisto-module"
 }

@@ -13,15 +13,10 @@ use Seven\Bagisto\Services\Seven;
 class SevenController extends Controller {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected Seven $seven;
-
-    public function __construct(Seven $seven) {
-        $this->seven = $seven;
-    }
+    public function __construct(protected Seven $seven) {}
 
     /**
      * Display a listing of the resource.
-     * @return View
      */
     public function index(): View {
         return view('seven::index', ['entityType' => 'customers']);
@@ -29,8 +24,6 @@ class SevenController extends Controller {
 
     /**
      * Compose SMS for destined for a single customer.
-     * @param int $id
-     * @return View
      */
     public function smsCustomer(int $id): View {
         return $this->sms('customers', $id);
@@ -38,18 +31,11 @@ class SevenController extends Controller {
 
     /**
      * Compose SMS for destined for a single customer group.
-     * @param int $id
-     * @return View
      */
     public function smsCustomerGroup(int $id): View {
         return $this->sms('customerGroups', $id);
     }
 
-    /**
-     * @param string $entityType
-     * @param int $id
-     * @return View
-     */
     protected function sms(string $entityType, int $id): View {
         return view('seven::sms', compact('entityType', 'id'));
     }

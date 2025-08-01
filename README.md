@@ -13,18 +13,17 @@ Adds the functionality to send SMS via [seven](https://www.seven.io).
 1. Retrieve the package via composer by running `composer require seven.io/bagisto`
 
 2. Register the package as service provider by appending an entry in **config/app.php**.
-
-```php
-<?php
-return [
-    // ...
-    'providers' => [
+    ```php
+    <?php
+    return [
         // ...
-        Seven\Bagisto\Providers\SevenServiceProvider::class,
-    ],
-        // ...
-];
-```
+        'providers' => [
+            // ...
+            Seven\Bagisto\Providers\SevenServiceProvider::class,
+        ],
+            // ...
+    ];
+    ```
 
 3. Execute these commands to clear the cache and migrate the database:
 
@@ -71,13 +70,13 @@ configuration form due to technical limitations.
 
 ## Usage
 
-### Send SMS to Customer
+### Send SMS to a Customer
 
-Go to `Customers` and click on the seven icon in the actions column.
+View a customer and use the *Send SMS* card.
 
-### Send SMS to Customer Group
+### Send SMS to all Customers
 
-Go to `Groups` and click on the seven icon in the actions column.
+Click on the *seven* admin menu entry and use the form.
 
 You can use property placeholders which resolve to the person's property as long as it is
 defined, e.g. {{first_name}} {{last_name}} resolves to the person's first and last name.
