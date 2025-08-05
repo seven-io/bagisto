@@ -3,48 +3,90 @@
 namespace Seven\Bagisto\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
+use Seven\Bagisto\Exceptions\UnprocessableEntityTypeException;
 use Seven\Bagisto\Services\Seven;
+use Webkul\Customer\Models\Customer;
+use Webkul\Customer\Repositories\CustomerGroupRepository;
+use Webkul\Customer\Repositories\CustomerRepository;
 
 class SevenController extends Controller {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function __construct(protected Seven $seven) {}
+    public function __construct(
+        protected Seven $seven,
+        protected CustomerGroupRepository $customerGroupRepository,
+        protected CustomerRepository $customerRepository
+    ) {}
+
+    /**
+     * @return Customer[]
+     */
+    protected function getCustomers(Request $request): array {
+        $entityType = $request->post('entityType');
+        $id = $request->post('id');
+        if (null === $id) {
+            $previousUrl = $request->session()->previousUrl();
+            $parts = explode('/', $previousUrl);
+            $id = array_pop($parts);
+        }
+        $customerGroupId = $request->post('customerGroupId');
+
+        switch ($entityType) {
+            case 'customers':
+                if ($id) return [$this->customerRepository->find($id)];
+
+                /** @var Collection $collection */
+                $where = [];
+                if ($customerGroupId) $where['customer_group_id'] = (int)$customerGroupId;
+                $collection = $this->customerRepository->findWhere($where);
+                return $collection->all();
+            case 'customerGroups':
+                /** @var Collection $collection */
+                $collection = $this->customerRepository
+                    ->findByField('customer_group_id', $id);
+                return $collection->all();
+            default:
+                throw new UnprocessableEntityTypeException($entityType, $id);
+        }
+    }
 
     /**
      * Display a listing of the resource.
      */
     public function index(): View {
-        return view('seven::index', ['entityType' => 'customers']);
+        $customerGroups = $this->customerGroupRepository->findWhere([['code', '<>', 'guest']]);
+        return view('seven::index', ['entityType' => 'customers', 'customerGroups' => $customerGroups]);
     }
 
-    /**
-     * Compose SMS for destined for a single customer.
-     */
-    public function smsCustomer(int $id): View {
-        return $this->sms('customers', $id);
-    }
-
-    /**
-     * Compose SMS for destined for a single customer group.
-     */
-    public function smsCustomerGroup(int $id): View {
-        return $this->sms('customerGroups', $id);
-    }
-
-    protected function sms(string $entityType, int $id): View {
-        return view('seven::sms', compact('entityType', 'id'));
-    }
-
-    public function smsSend(): RedirectResponse {
+    public function sms(): RedirectResponse {
         $request = request();
 
         if ($request->method() === 'POST') {
-            $errors = $this->seven->sms($request);
+            $request->validate([
+                'from'  => [
+                    //'regex:/^([+]?[0-9]{1,16}|[a-zA-Z0-9 \-_+/()&$!,.@]{1,11})$/' // TODO
+                ],
+            ]);
+            $customers = $this->getCustomers($request);
+            $text = $request->post('text');
+
+            $smsParams = [];
+            foreach (['from'] as $key) {
+                $value = $request->post($key);
+                if ($value) $smsParams[$key] = $value;
+            }
+
+            foreach (['flash', 'performance_tracking'] as $key)
+                if ('1' === $request->post($key)) $smsParams[$key] = true;
+
+            $errors = $this->seven->sms($customers, $text, $smsParams);
 
             if (count($errors)) return redirect()->back();
         }

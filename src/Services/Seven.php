@@ -5,19 +5,14 @@ namespace Seven\Bagisto\Services;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use Seven\Bagisto\Exceptions\UnprocessableEntityTypeException;
 use Seven\Bagisto\Models\Sms;
-use Webkul\Customer\Models\Customer;
 use Webkul\Customer\Repositories\CustomerRepository;
 use Webkul\Core\Models\CoreConfig;
 use Webkul\Core\Repositories\CoreConfigRepository;
 
 class Seven {
     protected ?string $apiKey;
-
     protected Client $client;
 
     public function __construct(
@@ -36,8 +31,7 @@ class Seven {
     }
 
     private function getApiKey(): ?string {
-        $coreConfig = $this->coreConfigRepository->findOneByField('code',
-            'seven.general.settings.api_key');
+        $coreConfig = $this->coreConfigRepository->findOneByField('code', 'seven.general.settings.api_key');
 
         if ($coreConfig) {
             /** @var CoreConfig $coreConfig */
@@ -47,15 +41,8 @@ class Seven {
         return config('services.seven.api_key');
     }
 
-    public function sms(Request $request): array {
-        $persons = $this->getCustomers($request);
-        $validated = $request->validate([
-            'from'  => [
-                //'regex:/^([+]?[0-9]{1,16}|[a-zA-Z0-9 \-_+/()&$!,.@]{1,11})$/' // TODO
-            ],
-        ]);
-
-        if (empty($persons)) {
+    public function sms(array $customers, string $text, array $smsParams): array {
+        if (empty($customers)) {
             $error = __('seven::app.no_recipients');
             $errors[] = $error;
             session()->flash('error', $error);
@@ -64,14 +51,13 @@ class Seven {
             $msgCount = 0;
             $receivers = 0;
 
-            $text = $request->post('text');
             $errors = [];
             $requests = [];
             $matches = [];
             preg_match_all('{{{+[a-z]*_*[a-z]+}}}', $text, $matches);
             $hasPlaceholders = is_array($matches) && !empty($matches[0]);
 
-            if ($hasPlaceholders) foreach ($persons as $person) {
+            if ($hasPlaceholders) foreach ($customers as $person) {
                 $pText = $text;
 
                 foreach ($matches[0] as $match) {
@@ -91,18 +77,8 @@ class Seven {
             }
             else $requests[] = [
                 'text' => $text,
-                'to' => $this->getCustomersNumbers(...$persons),
+                'to' => $this->getCustomersNumbers(...$customers),
             ];
-
-            $smsParams = [];
-
-            foreach (['from',] as $key) {
-                $value = $request->post($key);
-                if ($value) $smsParams[$key] = $value;
-            }
-
-            foreach (['flash', 'performance_tracking',] as $key)
-                if ('1' === $request->post($key)) $smsParams[$key] = true;
 
             foreach ($requests as $req) {
                 try {
@@ -136,35 +112,6 @@ class Seven {
         }
 
         return $errors;
-    }
-
-    /**
-     * @return Customer[]
-     */
-    protected function getCustomers(Request $request): array {
-        $entityType = $request->post('entityType');
-        $id = $request->post('id');
-        if (null === $id) {
-            $previousUrl = $request->session()->previousUrl();
-            $parts = explode('/', $previousUrl);
-            $id = array_pop($parts);
-        }
-
-        switch ($entityType) {
-            case 'customers':
-                if ($id) return [$this->customerRepository->find($id)];
-
-                /** @var Collection $collection */
-                $collection = $this->customerRepository->all();
-                return $collection->all();
-            case 'customerGroups':
-                /** @var Collection $collection */
-                $collection = $this->customerRepository
-                    ->findByField('customer_group_id', $id);
-                return $collection->all();
-            default:
-                throw new UnprocessableEntityTypeException($entityType, $id);
-        }
     }
 
     protected function getCustomersNumbers(...$persons): string {
