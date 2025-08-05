@@ -6,7 +6,7 @@ Adds the functionality to send SMS via [seven](https://www.seven.io).
 ## Prerequisites
 
 - An [API Key](https://help.seven.io/en/api-key-access) from seven
-- [Bagisto](https://bagisto.com/) - tested with v1.2.x
+- [Bagisto](https://bagisto.com/) - tested with v2.3.x
 
 ## Installation
 
@@ -46,20 +46,20 @@ in two ways:
 1. Define your seven API key in the environment by adding an entry to the **.env** file in
    the root of your project.
 
-```dotenv
-SEVEN_API_KEY=YourSuperSecretApiKeyFromSeven
-```
+    ```dotenv
+    SEVEN_API_KEY=YourSuperSecretApiKeyFromSeven
+    ```
 
 2. Add the following lines to **config/services.php**:
 
-```php
-return [
-    // ...
-    'seven' => [
-        'api_key' => env('SEVEN_API_KEY'), // must match the key from .env file added in the previous step
-    ],
-];
-```
+    ```php
+    return [
+        // ...
+        'seven' => [
+            'api_key' => env('SEVEN_API_KEY'), // must match the key from .env file added in the previous step
+        ],
+    ];
+    ```
 
 Clear the cache and cache the configuration by executing
 `php artisan cache:clear && php artisan config:cache`.

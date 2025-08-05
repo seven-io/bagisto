@@ -28,10 +28,10 @@
     "license": "MIT",
     "name": "seven.io/bagisto",
     "require": {
-        "php": "^7.4|^8.0"
+        "php": "^8"
     },
     "require-dev": {
-        "bagisto/bagisto": "^1.2|^1.3"
+        "bagisto/bagisto": "^2"
     },
     "support": {
         "docs": "https://github.com/seven-io/bagisto",
