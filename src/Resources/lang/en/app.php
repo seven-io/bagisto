@@ -2,9 +2,13 @@
 
 return [
     'about_bulk' => 'Send SMS to all persons at once.',
+    'after_registration_text' => 'Send message after registration.',
+    'after_registration_text_info' => 'This message gets sent to the customer after registration.',
     'api_key' => 'API Key',
     'api_key_info' => 'See https://help.seven.io/en/articles/9582186-where-do-i-find-my-api-key',
     'contact_type' => 'Contact Type',
+    'events' => 'Events',
+    'events_info' => 'Settings regarding event-based messaging.',
     'flash' => 'Flash',
     'from' => 'Sender Identifier',
     'general' => 'General',
@@ -16,6 +20,7 @@ return [
     'phone' => 'Phone',
     'send_sms' => 'Send SMS',
     'send_sms_bulk' => 'Send Bulk SMS',
+    'settings' => 'Settings',
     'settings_info' => 'All settings regarding the seven extension',
     'sms_sent' => 'Sent :msgCount SMS to :receivers recipients for :cost €',
     'text' => 'Text',

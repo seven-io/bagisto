@@ -2,9 +2,13 @@
 
 return [
     'about_bulk' => 'Senden Sie SMS an alle Personen auf einem Schlag.',
+    'after_registration_text' => 'Nachrichtenversand nach Registrierung.',
+    'after_registration_text_info' => 'Diese Nachricht wird an Neukunden versandt nach Registrierung.',
     'api_key' => 'API-Schlüssel',
     'api_key_info' => 'Siehe https://help.seven.io/de/articles/9582186-wo-steht-mein-api-key',
     'contact_type' => 'Kontakt-Type',
+    'events' => 'Ereignisse',
+    'events_info' => 'Einstellungen bzgl. ereignisbasiertem Nachrichtenversand',
     'flash' => 'Flash',
     'from' => 'Absenderkennung',
     'general' => 'Generell',
@@ -16,6 +20,7 @@ return [
     'phone' => 'Rufnummer',
     'send_sms' => 'SMS senden',
     'send_sms_bulk' => 'SMS-Massenversand',
+    'settings' => 'Einstellungen',
     'settings_info' => 'Sämtliche Einstellungen zur Erweiterung von seven',
     'sms_sent' => ':msgCount SMS versandt an :receivers Empfangsziele für :cost €',
     'text' => 'Text',

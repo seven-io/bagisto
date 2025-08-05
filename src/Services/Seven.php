@@ -8,8 +8,6 @@ use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Facades\Log;
 use Seven\Bagisto\Models\Sms;
 use Webkul\Customer\Repositories\CustomerRepository;
-use Webkul\Core\Models\CoreConfig;
-use Webkul\Core\Repositories\CoreConfigRepository;
 
 class Seven {
     protected ?string $apiKey;
@@ -17,9 +15,9 @@ class Seven {
 
     public function __construct(
         protected CustomerRepository   $customerRepository,
-        protected CoreConfigRepository $coreConfigRepository
+        protected Configuration $configuration
     ) {
-        $this->apiKey = self::getApiKey();
+        $this->apiKey = $this->configuration->getApiKey();
         $this->client = new Client([
             'base_uri' => 'https://gateway.seven.io/api/',
             RequestOptions::HEADERS => [
@@ -28,17 +26,6 @@ class Seven {
                 'X-Api-Key' => $this->apiKey,
             ],
         ]);
-    }
-
-    private function getApiKey(): ?string {
-        $coreConfig = $this->coreConfigRepository->findOneByField('code', 'seven.general.settings.api_key');
-
-        if ($coreConfig) {
-            /** @var CoreConfig $coreConfig */
-            return $coreConfig->getAttribute('value');
-        }
-
-        return config('services.seven.api_key');
     }
 
     public function sms(array $customers, string $text, array $smsParams): array {
