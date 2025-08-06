@@ -11,18 +11,20 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Seven\Bagisto\Exceptions\UnprocessableEntityTypeException;
+use Seven\Bagisto\Services\Configuration;
 use Seven\Bagisto\Services\Seven;
 use Webkul\Customer\Models\Customer;
 use Webkul\Customer\Repositories\CustomerGroupRepository;
 use Webkul\Customer\Repositories\CustomerRepository;
 
-class SevenController extends Controller {
+class BulkController extends Controller {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function __construct(
         protected Seven $seven,
         protected CustomerGroupRepository $customerGroupRepository,
-        protected CustomerRepository $customerRepository
+        protected CustomerRepository $customerRepository,
+        protected Configuration $configuration
     ) {}
 
     /**
@@ -62,7 +64,12 @@ class SevenController extends Controller {
      */
     public function index(): View {
         $customerGroups = $this->customerGroupRepository->findWhere([['code', '<>', 'guest']]);
-        return view('seven::index', ['entityType' => 'customers', 'customerGroups' => $customerGroups]);
+        $from = $this->configuration->getSmsFrom();
+        return view('seven::index', [
+            'customerGroups' => $customerGroups,
+            'entityType' => 'customers',
+            'from' => $from,
+        ]);
     }
 
     public function sms(): RedirectResponse {

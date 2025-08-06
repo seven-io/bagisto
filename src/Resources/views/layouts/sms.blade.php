@@ -4,7 +4,7 @@
     </x-slot>
 
     <x-admin::form
-        :action="route('admin.seven.sms_submit')"
+        :action="route('admin.seven.sms_submit_bulk')"
         enctype="multipart/form-data"
         method="POST"
     >
@@ -21,7 +21,7 @@
 
         @include('seven::sms.flash')
         @include('seven::sms.performance_tracking')
-        @include('seven::sms.from')
+        <x-sms-from value='{{ $from }}'></x-sms-from>
         @include('seven::sms.text')
 
         <button type='submit' class='primary-button'>

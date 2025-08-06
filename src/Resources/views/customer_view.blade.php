@@ -11,7 +11,7 @@
 
         <input name='entityType' value='customers' type='hidden'/>
 
-        @include('seven::sms.from')
+        <x-sms-from value=''></x-sms-from>
         @include('seven::sms.text')
 
         <button type='submit' class='primary-button'>
