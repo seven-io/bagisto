@@ -38,6 +38,7 @@ class SevenServiceProvider extends ServiceProvider {
         });
 
         Event::listen('customer.registration.after', 'Seven\Bagisto\Listeners\CustomerListener@afterRegistration');
+        Event::listen('customer.password.update.after', 'Seven\Bagisto\Listeners\CustomerListener@afterPasswordUpdate');
     }
 
     /**

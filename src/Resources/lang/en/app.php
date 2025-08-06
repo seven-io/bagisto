@@ -2,7 +2,9 @@
 
 return [
     'about_bulk' => 'Send SMS to all persons at once.',
-    'after_registration_text' => 'Send message after registration.',
+    'after_password_update_text' => 'Send message after password change.',
+    'after_password_update_text_info' => 'This message gets send to the customer after their password has changed.',
+    'after_registration_text' => 'Send message after registration',
     'after_registration_text_info' => 'This message gets sent to the customer after registration.',
     'api_key' => 'API Key',
     'api_key_info' => 'See https://help.seven.io/en/articles/9582186-where-do-i-find-my-api-key',

@@ -22,6 +22,21 @@ readonly class CustomerListener {
         $from = $this->configuration->getSmsFrom();
         $smsParams = compact('from');
         $res = $this->seven->sms([$customer], $text, $smsParams);
+        Log::debug('seven: send message for afterRegistration', $res);
+    }
+
+    /** @noinspection PhpUnused */
+    public function afterPasswordUpdate(Customer $customer): void {
+        $text = $this->configuration->getAfterPasswordUpdateText();
+        if (empty($text)) {
+            Log::debug('seven: text not set for afterPasswordUpdate');
+            return;
+        }
+
+        $from = $this->configuration->getSmsFrom();
+        $smsParams = compact('from');
+        $res = $this->seven->sms([$customer], $text, $smsParams);
+        Log::debug('seven: send message for afterPasswordUpdate', $res);
     }
 }
 

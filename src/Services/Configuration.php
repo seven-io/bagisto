@@ -35,4 +35,8 @@ class Configuration {
     public function getAfterRegistrationText(): ?string {
         return $this->findOneByField('events.after_registration_text');
     }
+
+    public function getAfterPasswordUpdateText(): ?string {
+        return $this->findOneByField('events.after_password_update_text');
+    }
 }
