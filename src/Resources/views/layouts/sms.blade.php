@@ -19,10 +19,10 @@
 
         @yield('filters')
 
-        @include('seven::sms.flash')
-        @include('seven::sms.performance_tracking')
+        <x-sms-flash></x-sms-flash>
+        <x-sms-performance-tracking></x-sms-performance-tracking>
         <x-sms-from value='{{ $from }}'></x-sms-from>
-        @include('seven::sms.text')
+        <x-sms-text></x-sms-text>
 
         <button type='submit' class='primary-button'>
             @lang('seven::app.send_sms')

@@ -5,7 +5,10 @@ namespace Seven\Bagisto\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Seven\Bagisto\View\Components\Sms\Flash;
 use Seven\Bagisto\View\Components\Sms\From;
+use Seven\Bagisto\View\Components\Sms\PerformanceTracking;
+use Seven\Bagisto\View\Components\Sms\Text;
 
 class SevenServiceProvider extends ServiceProvider {
     /**
@@ -26,6 +29,9 @@ class SevenServiceProvider extends ServiceProvider {
         Event::listen('checkout.order.save.after', 'Seven\Bagisto\Listeners\CheckoutListener@afterSaveOrder');
 
         Blade::component('sms-from', From::class);
+        Blade::component('sms-flash', Flash::class);
+        Blade::component('sms-performance-tracking', PerformanceTracking::class);
+        Blade::component('sms-text', Text::class);
     }
 
     /**
