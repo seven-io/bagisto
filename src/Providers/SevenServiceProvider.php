@@ -31,8 +31,6 @@ class SevenServiceProvider extends ServiceProvider {
                 $viewRenderEventManager->addTemplate('seven::layouts.style');
             });
 
-        $this->app->register(ModuleServiceProvider::class);
-
         Event::listen('bagisto.admin.customers.customers.view.card.notes.after', function($viewRenderEventManager) {
             $viewRenderEventManager->addTemplate('seven::customer_view');
         });

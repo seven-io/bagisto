@@ -6,7 +6,6 @@ use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Facades\Log;
-use Seven\Bagisto\Models\Sms;
 use Webkul\Customer\Repositories\CustomerRepository;
 
 class Seven {
@@ -70,11 +69,7 @@ class Seven {
             foreach ($requests as $req) {
                 try {
                     $response = $this->client->post('sms',
-                        [RequestOptions::JSON => array_merge($smsParams, $req)])
-                        ->getBody()->getContents();
-                    (new Sms)->fill(
-                        array_merge($req, compact('response'), ['to' => [$req['to']]]))
-                        ->save();
+                        [RequestOptions::JSON => array_merge($smsParams, $req)])->getBody()->getContents();
                     $response = json_decode($response);
 
                     Log::info('seven responded to SMS dispatch.', compact('response'));

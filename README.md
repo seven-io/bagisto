@@ -28,7 +28,7 @@ Adds the functionality to send SMS via [seven](https://www.seven.io).
 3. Execute these commands to clear the cache and migrate the database:
 
 ```
-php artisan cache:clear && php artisan migrate
+php artisan cache:clear && php artisan optimize
 ```
 
 ## Setup
