@@ -8,14 +8,9 @@
         enctype="multipart/form-data"
         method="POST"
     >
-
-        <input name='entityType' value='customers' type='hidden'/>
-
         <x-sms-from value=''></x-sms-from>
         <x-sms-text></x-sms-text>
 
-        <button type='submit' class='primary-button'>
-            @lang('seven::app.send_sms')
-        </button>
+        <button type='submit' class='primary-button'>@lang('seven::app.send_sms')</button>
     </x-admin::form>
 </div>
