@@ -19,6 +19,7 @@
         <p>
             @lang('seven::app.about_bulk')
         </p>
+        <x-seven-customer-groups></x-seven-customer-groups>
         <v-seven-sms-bulk>
             <div class="flex cursor-pointer items-center justify-between gap-1.5 px-2.5 text-blue-600 transition-all hover:underline"></div>
         </v-seven-sms-bulk>
