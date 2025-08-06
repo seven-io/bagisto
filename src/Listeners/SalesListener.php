@@ -3,7 +3,6 @@
 namespace Seven\Bagisto\Listeners;
 
 use Illuminate\Support\Facades\Log;
-use Webkul\Customer\Models\Customer;
 use Webkul\Sales\Models\Refund;
 use Webkul\Sales\Models\Shipment;
 

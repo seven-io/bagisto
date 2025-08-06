@@ -1,4 +1,4 @@
-<img src="https://www.seven.io/wp-content/uploads/Logo.svg" width="250" />
+<img alt="" src="https://www.seven.io/wp-content/uploads/Logo.svg" width="250" />
 
 
 Adds the functionality to send SMS via [seven](https://www.seven.io).
