@@ -8,9 +8,15 @@
         enctype="multipart/form-data"
         method="POST"
     >
-        <x-seven-sms-from value=''></x-seven-sms-from>
-        <x-seven-sms-text></x-seven-sms-text>
+        <div class="border-b p-4 dark:border-gray-800">
+            <div class='flex justify-between'>
+                <x-seven-sms-flash></x-seven-sms-flash>
+                <x-seven-sms-performance-tracking></x-seven-sms-performance-tracking>
+            </div>
+            <x-seven-sms-from value=''></x-seven-sms-from>
+            <x-seven-sms-text></x-seven-sms-text>
 
-        <button type='submit' class='primary-button'>@lang('seven::app.send_sms')</button>
+            <button type='submit' class='primary-button'>@lang('seven::app.send_sms')</button>
+        </div>
     </x-admin::form>
 </div>
