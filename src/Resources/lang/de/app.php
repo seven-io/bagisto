@@ -8,6 +8,8 @@ return [
     'after_registration_text_info' => 'Diese Nachricht wird an Neukunden versandt nach Registrierung.',
     'after_save_order_text' => 'Nachrichtenversand nach Bestellung',
     'after_save_order_text_info' => 'Diese Nachricht wird an Kundschaft versandt nach erfolgter Bestellung.',
+    'after_save_refund_text' => 'Nachrichtenversand nach Rückerstattung',
+    'after_save_refund_text_info' => 'Diese Nachricht wird an Kundschaft versandt nach Rückerstattung.',
     'after_save_shipment_text' => 'Nachrichtenversand nach Versand',
     'after_save_shipment_text_info' => 'Diese Nachricht wird an Kundschaft versandt nach Lagerausgang.',
     'api_key' => 'API-Schlüssel',

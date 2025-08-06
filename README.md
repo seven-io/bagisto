@@ -93,6 +93,9 @@ Send message after a customer has placed an order.
 #### After shipment
 Send message after a shipment has been initiated.
 
+#### After refund
+Send message after a refund has been initiated.
+
 You can use property placeholders which resolve to the customer's property as long as it is
 defined, e.g. {{first_name}} {{last_name}} resolves to the customer's first and last name.
 

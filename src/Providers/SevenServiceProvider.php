@@ -36,6 +36,9 @@ class SevenServiceProvider extends ServiceProvider {
         if (!empty($configuration->getAfterSaveShipmentText())) {
             Event::listen('sales.shipment.save.after', 'Seven\Bagisto\Listeners\SalesListener@afterSaveShipment');
         }
+        if (!empty($configuration->getAfterSaveRefundText())) {
+            Event::listen('sales.refund.save.after', 'Seven\Bagisto\Listeners\SalesListener@afterSaveRefund');
+        }
 
         Blade::component('seven-sms-from', From::class);
         Blade::component('seven-sms-flash', Flash::class);

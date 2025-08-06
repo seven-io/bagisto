@@ -8,6 +8,8 @@ return [
     'after_registration_text_info' => 'This message gets sent to the customer after registration.',
     'after_save_order_text' => 'Send message after order',
     'after_save_order_text_info' => 'This message gets sent to the customer after placing a new order.',
+    'after_save_refund_text' => 'Send message after refund',
+    'after_save_refund_text_info' => 'This message gets sent to the customer after a refund has been initiated.',
     'after_save_shipment_text' => 'Send message after shipment',
     'after_save_shipment_text_info' => 'This message gets sent to the customer after a shipment has been initiated.',
     'api_key' => 'API Key',

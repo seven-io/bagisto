@@ -32,6 +32,10 @@ class Configuration {
         return $this->findOneByField('sms.from');
     }
 
+    public function getAfterSaveRefundText(): ?string {
+        return $this->findOneByField('events.after_save_refund_text');
+    }
+
     public function getAfterSaveShipmentText(): ?string {
         return $this->findOneByField('events.after_save_shipment_text');
     }
