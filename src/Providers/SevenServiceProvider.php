@@ -5,29 +5,34 @@ namespace Seven\Bagisto\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Seven\Bagisto\Services\Configuration;
 use Seven\Bagisto\View\Components\CustomerGroups;
 use Seven\Bagisto\View\Components\Sms\Flash;
 use Seven\Bagisto\View\Components\Sms\From;
 use Seven\Bagisto\View\Components\Sms\PerformanceTracking;
 use Seven\Bagisto\View\Components\Sms\Text;
+use Webkul\Theme\ViewRenderEventManager;
 
 class SevenServiceProvider extends ServiceProvider {
-    /**
-     * Bootstrap services.
-     * @return void
-     */
-    public function boot() {
+    public function boot(Configuration $configuration): void {
         $this->loadRoutesFrom(__DIR__ . '/../Routes/admin-routes.php');
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'seven');
         $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'seven');
 
-        Event::listen('bagisto.admin.customers.customers.view.card.notes.after', function($viewRenderEventManager) {
-            $viewRenderEventManager->addTemplate('seven::customer.view');
-        });
+        Event::listen('bagisto.admin.customers.customers.view.card.notes.after',
+            function (ViewRenderEventManager $viewRenderEventManager) {
+                $viewRenderEventManager->addTemplate('seven::customer.view');
+            });
 
-        Event::listen('customer.registration.after', 'Seven\Bagisto\Listeners\CustomerListener@afterRegistration');
-        Event::listen('customer.password.update.after', 'Seven\Bagisto\Listeners\CustomerListener@afterPasswordUpdate');
-        Event::listen('checkout.order.save.after', 'Seven\Bagisto\Listeners\CheckoutListener@afterSaveOrder');
+        if (!empty($configuration->getAfterRegistrationText())) {
+            Event::listen('customer.registration.after', 'Seven\Bagisto\Listeners\CustomerListener@afterRegistration');
+        }
+        if (!empty($configuration->getAfterPasswordUpdateText())) {
+            Event::listen('customer.password.update.after', 'Seven\Bagisto\Listeners\CustomerListener@afterPasswordUpdate');
+        }
+        if (!empty($configuration->getAfterSaveOrderText())) {
+            Event::listen('checkout.order.save.after', 'Seven\Bagisto\Listeners\CheckoutListener@afterSaveOrder');
+        }
 
         Blade::component('seven-sms-from', From::class);
         Blade::component('seven-sms-flash', Flash::class);
@@ -36,11 +41,7 @@ class SevenServiceProvider extends ServiceProvider {
         Blade::component('seven-customer-groups', CustomerGroups::class);
     }
 
-    /**
-     * Register services.
-     * @return void
-     */
-    public function register() {
+    public function register(): void {
         $this->mergeConfigFrom(dirname(__DIR__) . '/Config/admin-menu.php', 'menu.admin');
         $this->mergeConfigFrom(dirname(__DIR__) . '/Config/acl.php', 'acl');
         $this->mergeConfigFrom(dirname(__DIR__) . '/Config/system.php', 'core');
