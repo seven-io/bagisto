@@ -22,7 +22,7 @@ class SevenServiceProvider extends ServiceProvider {
         $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'seven');
 
         Event::listen('bagisto.admin.customers.customers.view.card.notes.after', function($viewRenderEventManager) {
-            $viewRenderEventManager->addTemplate('seven::customer_view');
+            $viewRenderEventManager->addTemplate('seven::customer.view');
         });
 
         Event::listen('customer.registration.after', 'Seven\Bagisto\Listeners\CustomerListener@afterRegistration');
