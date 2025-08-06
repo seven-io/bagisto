@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Seven\Bagisto\Services\Configuration;
+use Seven\Bagisto\Services\RequestHandler;
 use Seven\Bagisto\Services\Seven;
 use Webkul\Customer\Models\Customer;
 use Webkul\Customer\Repositories\CustomerGroupRepository;
@@ -49,24 +50,10 @@ class BulkController extends Controller {
         $request = request();
 
         if ($request->method() === 'POST') {
-            $request->validate([
-                'from'  => [
-                    //'regex:/^([+]?[0-9]{1,16}|[a-zA-Z0-9 \-_+/()&$!,.@]{1,11})$/' // TODO
-                ],
-            ]);
-            $customers = $this->getCustomers($request);
-            $text = $request->post('text');
+            $requestHandler = new RequestHandler($request);
+            $requestHandler->validateSmsParams();
 
-            $smsParams = [];
-            foreach (['from'] as $key) {
-                $value = $request->post($key);
-                if ($value) $smsParams[$key] = $value;
-            }
-
-            foreach (['flash', 'performance_tracking'] as $key)
-                if ('1' === $request->post($key)) $smsParams[$key] = true;
-
-            $errors = $this->seven->sms($customers, $text, $smsParams);
+            $errors = $this->seven->sms($this->getCustomers($request), $requestHandler->buildSmsParams());
 
             if (count($errors)) return redirect()->back();
         }

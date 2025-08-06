@@ -5,6 +5,7 @@ namespace Seven\Bagisto\Services;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Webkul\Customer\Repositories\CustomerRepository;
 
@@ -27,12 +28,13 @@ class Seven {
         ]);
     }
 
-    public function sms(array $customers, string $text, array $smsParams): array {
+    public function sms(array $customers, array $smsParams): array {
         if (empty($customers)) {
             $error = __('seven::app.no_recipients');
             $errors[] = $error;
             session()->flash('error', $error);
         } else {
+            $text = $smsParams['text'];
             $cost = 0.0;
             $msgCount = 0;
             $receivers = 0;

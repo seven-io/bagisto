@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Seven\Bagisto\Services\RequestHandler;
 use Seven\Bagisto\Services\Seven;
 use Webkul\Customer\Models\Customer;
 use Webkul\Customer\Repositories\CustomerRepository;
@@ -35,23 +36,10 @@ class CustomerController extends Controller {
         $request = request();
 
         if ($request->method() === 'POST') {
-            $request->validate([
-                'from'  => [
-                    //'regex:/^([+]?[0-9]{1,16}|[a-zA-Z0-9 \-_+/()&$!,.@]{1,11})$/' // TODO
-                ],
-            ]);
-            $text = $request->post('text');
+            $requestHandler = new RequestHandler($request);
+            $requestHandler->validateSmsParams();
 
-            $smsParams = [];
-            foreach (['from'] as $key) {
-                $value = $request->post($key);
-                if ($value) $smsParams[$key] = $value;
-            }
-
-            foreach (['flash', 'performance_tracking'] as $key)
-                if ('1' === $request->post($key)) $smsParams[$key] = true;
-
-            $errors = $this->seven->sms([$this->getCustomer($request)], $text, $smsParams);
+            $errors = $this->seven->sms([$this->getCustomer($request)], $requestHandler->buildSmsParams());
 
             if (count($errors)) return redirect()->back();
         }
