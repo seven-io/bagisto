@@ -13,6 +13,11 @@ readonly class CustomerListener {
 
     /** @noinspection PhpUnused */
     public function afterRegistration(Customer $customer): void {
+        $phone = $customer->getAttribute('phone');
+        if (empty($phone)) {
+            Log::debug('seven: phone not set for afterRegistration');
+            return;
+        }
         $text = $this->configuration->getAfterRegistrationText();
         if (empty($text)) {
             Log::debug('seven: text not set for afterRegistration');
@@ -27,6 +32,11 @@ readonly class CustomerListener {
 
     /** @noinspection PhpUnused */
     public function afterPasswordUpdate(Customer $customer): void {
+        $phone = $customer->getAttribute('phone');
+        if (empty($phone)) {
+            Log::debug('seven: phone not set for afterRegistration');
+            return;
+        }
         $text = $this->configuration->getAfterPasswordUpdateText();
         if (empty($text)) {
             Log::debug('seven: text not set for afterPasswordUpdate');
