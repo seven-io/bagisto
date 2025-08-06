@@ -10,7 +10,6 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
-use Seven\Bagisto\Exceptions\UnprocessableEntityTypeException;
 use Seven\Bagisto\Services\Configuration;
 use Seven\Bagisto\Services\Seven;
 use Webkul\Customer\Models\Customer;
@@ -31,7 +30,6 @@ class BulkController extends Controller {
      * @return Customer[]
      */
     protected function getCustomers(Request $request): array {
-        $entityType = $request->post('entityType');
         $id = $request->post('id');
         if (null === $id) {
             $previousUrl = $request->session()->previousUrl();
@@ -40,23 +38,13 @@ class BulkController extends Controller {
         }
         $customerGroupId = $request->post('customerGroupId');
 
-        switch ($entityType) {
-            case 'customers':
-                if ($id) return [$this->customerRepository->find($id)];
+        if ($id) return [$this->customerRepository->find($id)];
 
-                /** @var Collection $collection */
-                $where = [];
-                if ($customerGroupId) $where['customer_group_id'] = (int)$customerGroupId;
-                $collection = $this->customerRepository->findWhere($where);
-                return $collection->all();
-            case 'customerGroups':
-                /** @var Collection $collection */
-                $collection = $this->customerRepository
-                    ->findByField('customer_group_id', $id);
-                return $collection->all();
-            default:
-                throw new UnprocessableEntityTypeException($entityType, $id);
-        }
+        /** @var Collection $collection */
+        $where = [];
+        if ($customerGroupId) $where['customer_group_id'] = (int)$customerGroupId;
+        $collection = $this->customerRepository->findWhere($where);
+        return $collection->all();
     }
 
     /**
@@ -67,7 +55,6 @@ class BulkController extends Controller {
         $from = $this->configuration->getSmsFrom();
         return view('seven::index', [
             'customerGroups' => $customerGroups,
-            'entityType' => 'customers',
             'from' => $from,
         ]);
     }

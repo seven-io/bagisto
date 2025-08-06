@@ -15,7 +15,6 @@
         @csrf()
 
         <input name='id' value='{{ $id ?? null }}' type='hidden'/>
-        <input name='entityType' value='{{ $entityType }}' type='hidden'/>
 
         @yield('filters')
 
