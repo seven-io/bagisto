@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 namespace Seven\Bagisto\Listeners;
 
@@ -6,19 +6,18 @@ use Illuminate\Support\Facades\Log;
 use Webkul\Customer\Models\Customer;
 
 readonly class CustomerListener extends AbstractListener {
-    /** @noinspection PhpUnused */
     public function afterRegistration(Customer $customer): void {
         if (!$this->hasPhone($customer)) return;
         $text = $this->configuration->getAfterRegistrationText();
         if (empty($text)) {
-            Log::debug('seven: text not set for afterRegistration');
+            Log::debug('seven: text not set for customer::afterRegistration');
             return;
         }
 
         $from = $this->configuration->getSmsFrom();
         $smsParams = compact('from');
         $res = $this->seven->sms([$customer], $text, $smsParams);
-        Log::debug('seven: send message for afterRegistration', $res);
+        Log::debug('seven: sent message for customer::afterRegistration', $res);
     }
 
     /** @noinspection PhpUnused */
@@ -26,14 +25,14 @@ readonly class CustomerListener extends AbstractListener {
         if (!$this->hasPhone($customer)) return;
         $text = $this->configuration->getAfterPasswordUpdateText();
         if (empty($text)) {
-            Log::debug('seven: text not set for afterPasswordUpdate');
+            Log::debug('seven: text not set for customer::afterPasswordUpdate');
             return;
         }
 
         $from = $this->configuration->getSmsFrom();
         $smsParams = compact('from');
         $res = $this->seven->sms([$customer], $text, $smsParams);
-        Log::debug('seven: send message for afterPasswordUpdate', $res);
+        Log::debug('seven: sent message for customer::afterPasswordUpdate', $res);
     }
 }
 

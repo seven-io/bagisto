@@ -39,4 +39,8 @@ class Configuration {
     public function getAfterPasswordUpdateText(): ?string {
         return $this->findOneByField('events.after_password_update_text');
     }
+
+    public function getAfterSaveOrderText(): ?string {
+        return $this->findOneByField('events.after_save_order_text');
+    }
 }
