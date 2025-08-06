@@ -16,8 +16,6 @@ return [
     [
         'fields' => [
             [
-                'channel_based' => false,
-                'locale_based'  => false,
                 'info' => 'seven::app.api_key_info',
                 'name' => 'api_key',
                 'title' => 'seven::app.api_key',
@@ -33,8 +31,7 @@ return [
     [
         'fields' => [
             [
-                'channel_based' => false,
-                'locale_based'  => false,
+                'locale_based'  => true,
                 'info' => 'seven::app.sms_from_info',
                 'name' => 'from',
                 'title' => 'seven::app.sms_from',
@@ -50,24 +47,21 @@ return [
     [
         'fields' => [
             [
-                'channel_based' => false,
-                'locale_based'  => false,
+                'locale_based'  => true,
                 'info' => 'seven::app.after_registration_text_info',
                 'name' => 'after_registration_text',
                 'title' => 'seven::app.after_registration_text',
                 'type' => 'text',
             ],
             [
-                'channel_based' => false,
-                'locale_based'  => false,
+                'locale_based'  => true,
                 'info' => 'seven::app.after_password_update_text_info',
                 'name' => 'after_password_update_text',
                 'title' => 'seven::app.after_password_update_text',
                 'type' => 'text',
             ],
             [
-                'channel_based' => false,
-                'locale_based'  => false,
+                'locale_based'  => true,
                 'info' => 'seven::app.after_save_order_text_info',
                 'name' => 'after_save_order_text',
                 'title' => 'seven::app.after_save_order_text',

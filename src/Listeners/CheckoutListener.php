@@ -16,8 +16,8 @@ readonly class CheckoutListener extends AbstractListener {
         }
 
         $from = $this->configuration->getSmsFrom();
-        $smsParams = compact('from');
-        $res = $this->seven->sms([$customer], $text, $smsParams);
+        $smsParams = compact('from', 'text');
+        $res = $this->seven->sms([$customer], $smsParams);
         Log::debug('seven: sent message for checkout::afterSaveOrder', $res);
     }
 }
