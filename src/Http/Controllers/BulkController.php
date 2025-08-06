@@ -42,10 +42,7 @@ class BulkController extends Controller {
     public function index(): View {
         $customerGroups = $this->customerGroupRepository->findWhere([['code', '<>', 'guest']]);
         $from = $this->configuration->getSmsFrom();
-        return view('seven::index', [
-            'customerGroups' => $customerGroups,
-            'from' => $from,
-        ]);
+        return view('seven::bulk.index', compact('customerGroups', 'from'));
     }
 
     public function sms(): RedirectResponse {

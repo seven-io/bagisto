@@ -1,21 +1,38 @@
-@extends('seven::layouts.sms')
+<x-admin::layouts>
+    <x-slot:title>
+        @lang('seven::app.send_sms_bulk') - @lang('seven::app.name')
+    </x-slot>
 
-@section('title')
-    @lang('seven::app.send_sms_bulk')
-@stop
+    <x-admin::form
+        :action="route('admin.seven.sms_submit_bulk')"
+        enctype="multipart/form-data"
+        method="POST"
+    >
+        <h1 class="text-xl font-bold text-gray-800 dark:text-white">
+            @lang('seven::app.send_sms_bulk')
+        </h1>
 
-@section('heading')
-    @lang('seven::app.send_sms_bulk')
-@stop
+        @csrf()
 
-@section('filters')
-    <p>
-        @lang('seven::app.about_bulk')
-    </p>
-    <v-seven-sms-bulk>
-        <div class="flex cursor-pointer items-center justify-between gap-1.5 px-2.5 text-blue-600 transition-all hover:underline"></div>
-    </v-seven-sms-bulk>
-@stop
+        <input name='id' value='{{ $id ?? null }}' type='hidden'/>
+
+        <p>
+            @lang('seven::app.about_bulk')
+        </p>
+        <v-seven-sms-bulk>
+            <div class="flex cursor-pointer items-center justify-between gap-1.5 px-2.5 text-blue-600 transition-all hover:underline"></div>
+        </v-seven-sms-bulk>
+
+        <x-sms-flash></x-sms-flash>
+        <x-sms-performance-tracking></x-sms-performance-tracking>
+        <x-sms-from value='{{ $from }}'></x-sms-from>
+        <x-sms-text></x-sms-text>
+
+        <button type='submit' class='primary-button'>
+            @lang('seven::app.send_sms')
+        </button>
+    </x-admin::form>
+</x-admin::layouts>
 
 @pushOnce('scripts')
     <script
