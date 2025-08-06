@@ -67,6 +67,13 @@ return [
                 'title' => 'seven::app.after_save_order_text',
                 'type' => 'text',
             ],
+            [
+                'locale_based'  => true,
+                'info' => 'seven::app.after_save_shipment_text_info',
+                'name' => 'after_save_shipment_text',
+                'title' => 'seven::app.after_save_shipment_text',
+                'type' => 'text',
+            ],
         ],
         'info' => 'seven::app.events_info',
         'key' => 'seven.settings.events',
