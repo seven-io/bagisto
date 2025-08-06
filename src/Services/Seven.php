@@ -5,7 +5,6 @@ namespace Seven\Bagisto\Services;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Webkul\Customer\Repositories\CustomerRepository;
 
