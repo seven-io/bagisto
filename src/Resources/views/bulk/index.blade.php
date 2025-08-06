@@ -8,30 +8,20 @@
         enctype="multipart/form-data"
         method="POST"
     >
-        <h1 class="text-xl font-bold text-gray-800 dark:text-white">
-            @lang('seven::app.send_sms_bulk')
-        </h1>
+        <h1 class="text-xl font-bold text-gray-800 dark:text-white">@lang('seven::app.send_sms_bulk')</h1>
 
         @csrf()
 
-        <input name='id' value='{{ $id ?? null }}' type='hidden'/>
+        <p>@lang('seven::app.about_bulk')</p>
 
-        <p>
-            @lang('seven::app.about_bulk')
-        </p>
         <x-seven-customer-groups></x-seven-customer-groups>
-        <v-seven-sms-bulk>
-            <div class="flex cursor-pointer items-center justify-between gap-1.5 px-2.5 text-blue-600 transition-all hover:underline"></div>
-        </v-seven-sms-bulk>
 
         <x-sms-flash></x-sms-flash>
         <x-sms-performance-tracking></x-sms-performance-tracking>
         <x-sms-from value='{{ $from }}'></x-sms-from>
         <x-sms-text></x-sms-text>
 
-        <button type='submit' class='primary-button'>
-            @lang('seven::app.send_sms')
-        </button>
+        <button type='submit' class='primary-button'>@lang('seven::app.send_sms')</button>
     </x-admin::form>
 </x-admin::layouts>
 

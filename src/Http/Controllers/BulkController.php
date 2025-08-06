@@ -14,7 +14,6 @@ use Seven\Bagisto\Services\Configuration;
 use Seven\Bagisto\Services\RequestHandler;
 use Seven\Bagisto\Services\Seven;
 use Webkul\Customer\Models\Customer;
-use Webkul\Customer\Repositories\CustomerGroupRepository;
 use Webkul\Customer\Repositories\CustomerRepository;
 
 class BulkController extends Controller {
@@ -22,7 +21,6 @@ class BulkController extends Controller {
 
     public function __construct(
         protected Seven $seven,
-        protected CustomerGroupRepository $customerGroupRepository,
         protected CustomerRepository $customerRepository,
         protected Configuration $configuration
     ) {}
@@ -41,9 +39,8 @@ class BulkController extends Controller {
     }
 
     public function index(): View {
-        $customerGroups = $this->customerGroupRepository->findWhere([['code', '<>', 'guest']]);
         $from = $this->configuration->getSmsFrom();
-        return view('seven::bulk.index', compact('customerGroups', 'from'));
+        return view('seven::bulk.index', compact('from'));
     }
 
     public function sms(): RedirectResponse {
