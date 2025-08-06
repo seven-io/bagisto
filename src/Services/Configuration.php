@@ -28,6 +28,10 @@ class Configuration {
         return $this->findOneByField('general.api_key');
     }
 
+    public function getSmsFrom(): ?string {
+        return $this->findOneByField('sms.from');
+    }
+
     public function getAfterRegistrationText(): ?string {
         return $this->findOneByField('events.after_registration_text');
     }

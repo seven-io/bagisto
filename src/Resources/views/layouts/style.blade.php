@@ -2,5 +2,5 @@
     @bagistoVite([
     'src/Resources/assets/css/admin.css',
     'src/Resources/assets/js/app.js'
-    ], 'seven-bagisto')
+    ], 'seven')
 @endpush

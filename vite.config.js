@@ -24,9 +24,9 @@ export default defineConfig(({ mode }) => {
             vue(),
 
             laravel({
-                hotFile: "../../../public/seven-bagisto-default-vite.hot",
+                hotFile: "../../../public/seven-vite.hot",
                 publicDirectory: "../../../public",
-                buildDirectory: "themes/seven-bagisto/default/build",
+                buildDirectory: "themes/seven/build",
                 input: [
                     "src/Resources/assets/css/admin.css",
                     "src/Resources/assets/js/app.js",

@@ -19,7 +19,9 @@ readonly class CustomerListener {
             return;
         }
 
-        $res = $this->seven->sms([$customer], $text, []);
+        $from = $this->configuration->getSmsFrom();
+        $smsParams = compact('from');
+        $res = $this->seven->sms([$customer], $text, $smsParams);
     }
 }
 

@@ -35,6 +35,23 @@ return [
             [
                 'channel_based' => false,
                 'locale_based'  => false,
+                'info' => 'seven::app.sms_from_info',
+                'name' => 'from',
+                'title' => 'seven::app.sms_from',
+                'type' => 'text',
+                'validation' => 'max:16',
+            ],
+        ],
+        'info' => 'seven::app.settings_sms_info',
+        'key' => 'seven.settings.sms',
+        'name' => 'seven::app.settings_sms',
+        'sort' => 1,
+    ],
+    [
+        'fields' => [
+            [
+                'channel_based' => false,
+                'locale_based'  => false,
                 'info' => 'seven::app.after_registration_text_info',
                 'name' => 'after_registration_text',
                 'title' => 'seven::app.after_registration_text',
