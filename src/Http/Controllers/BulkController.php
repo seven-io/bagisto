@@ -30,15 +30,7 @@ class BulkController extends Controller {
      * @return Customer[]
      */
     protected function getCustomers(Request $request): array {
-        $id = $request->post('id');
-        if (null === $id) {
-            $previousUrl = $request->session()->previousUrl();
-            $parts = explode('/', $previousUrl);
-            $id = array_pop($parts);
-        }
         $customerGroupId = $request->post('customerGroupId');
-
-        if ($id) return [$this->customerRepository->find($id)];
 
         /** @var Collection $collection */
         $where = [];
@@ -47,9 +39,6 @@ class BulkController extends Controller {
         return $collection->all();
     }
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index(): View {
         $customerGroups = $this->customerGroupRepository->findWhere([['code', '<>', 'guest']]);
         $from = $this->configuration->getSmsFrom();
