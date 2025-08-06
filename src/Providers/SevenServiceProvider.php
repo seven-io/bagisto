@@ -29,10 +29,10 @@ class SevenServiceProvider extends ServiceProvider {
         Event::listen('customer.password.update.after', 'Seven\Bagisto\Listeners\CustomerListener@afterPasswordUpdate');
         Event::listen('checkout.order.save.after', 'Seven\Bagisto\Listeners\CheckoutListener@afterSaveOrder');
 
-        Blade::component('sms-from', From::class);
-        Blade::component('sms-flash', Flash::class);
-        Blade::component('sms-performance-tracking', PerformanceTracking::class);
-        Blade::component('sms-text', Text::class);
+        Blade::component('seven-sms-from', From::class);
+        Blade::component('seven-sms-flash', Flash::class);
+        Blade::component('seven-sms-performance-tracking', PerformanceTracking::class);
+        Blade::component('seven-sms-text', Text::class);
         Blade::component('seven-customer-groups', CustomerGroups::class);
     }
 

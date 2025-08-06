@@ -8,8 +8,8 @@
         enctype="multipart/form-data"
         method="POST"
     >
-        <x-sms-from value=''></x-sms-from>
-        <x-sms-text></x-sms-text>
+        <x-seven-sms-from value=''></x-seven-sms-from>
+        <x-seven-sms-text></x-seven-sms-text>
 
         <button type='submit' class='primary-button'>@lang('seven::app.send_sms')</button>
     </x-admin::form>

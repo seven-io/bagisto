@@ -16,10 +16,10 @@
 
         <x-seven-customer-groups></x-seven-customer-groups>
 
-        <x-sms-flash></x-sms-flash>
-        <x-sms-performance-tracking></x-sms-performance-tracking>
-        <x-sms-from value='{{ $from }}'></x-sms-from>
-        <x-sms-text></x-sms-text>
+        <x-seven-sms-flash></x-seven-sms-flash>
+        <x-seven-sms-performance-tracking></x-seven-sms-performance-tracking>
+        <x-seven-sms-from value='{{ $from }}'></x-seven-sms-from>
+        <x-seven-sms-text></x-seven-sms-text>
 
         <button type='submit' class='primary-button'>@lang('seven::app.send_sms')</button>
     </x-admin::form>
