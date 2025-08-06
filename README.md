@@ -78,8 +78,20 @@ View a customer and use the *Send SMS* card.
 
 Click on the *seven* admin menu entry and use the form.
 
-You can use property placeholders which resolve to the person's property as long as it is
-defined, e.g. {{first_name}} {{last_name}} resolves to the person's first and last name.
+### Event-based messaging
+You can send messages after certain events happen.
+
+#### After registration
+Send message after a customer has registered.
+
+#### After password change
+Send message after a customer has changed its password.
+
+#### After order
+Send message after a customer has placed an order.
+
+You can use property placeholders which resolve to the customer's property as long as it is
+defined, e.g. {{first_name}} {{last_name}} resolves to the customer's first and last name.
 
 ## Support
 
