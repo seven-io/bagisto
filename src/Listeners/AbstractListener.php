@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Log;
 use Seven\Bagisto\Services\Configuration;
 use Seven\Bagisto\Services\Seven;
 use Webkul\Customer\Models\Customer;
+use Webkul\Customer\Models\CustomerAddress;
 use Webkul\Customer\Repositories\CustomerRepository;
 
 abstract readonly class AbstractListener {
@@ -17,11 +18,20 @@ abstract readonly class AbstractListener {
     }
 
     protected function hasPhone(Customer $customer): bool {
+        $class = get_class($this);
+        $fn = debug_backtrace()[1]['function'];
+        $identifier = $class . '@' . $fn;
         $phone = $customer->getAttribute('phone');
         if (empty($phone)) {
-            $class = get_class($this);
-            $fn = debug_backtrace()[1]['function'];
-            $identifier = $class . '@' . $fn;
+            $addr = $customer->default_address()->first();
+            if (!$addr) {
+                Log::debug('seven: address not set for ' . $identifier);
+                return false;
+            }
+            /** @var CustomerAddress $addr */
+            $phone = $addr->getAttribute('phone');
+        }
+        if (empty($phone)) {
             Log::debug('seven: phone not set for ' . $identifier);
             return false;
         }
