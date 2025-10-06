@@ -1,6 +1,4 @@
-@push('styles')
-    @bagistoVite([
-    'src/Resources/assets/css/admin.css',
+@bagistoVite([
+    'src/Resources/assets/css/app.css',
     'src/Resources/assets/js/app.js'
-    ], 'seven')
-@endpush
+], 'seven')

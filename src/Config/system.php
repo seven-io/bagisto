@@ -8,6 +8,7 @@ return [
         'sort' => 1,
     ],
     [
+        'icon' => 'settings/store.svg',
         'info' => 'seven::app.settings_info',
         'key' => 'seven.settings',
         'name' => 'seven::app.settings',

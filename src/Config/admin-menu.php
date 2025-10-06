@@ -2,8 +2,7 @@
 
 return [
     [
-        'icon' => 'icon-seven',
-        'icon-class' => 'icon-seven',
+        'icon' => '',
         'key' => 'seven',
         'name' => 'seven',
         'route' => 'admin.seven.index',

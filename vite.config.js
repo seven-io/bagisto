@@ -25,10 +25,10 @@ export default defineConfig(({ mode }) => {
 
             laravel({
                 hotFile: "../../../public/seven-vite.hot",
-                publicDirectory: "../../../public",
-                buildDirectory: "themes/seven/build",
+                publicDirectory: "publishable",
+                buildDirectory: "default/build",
                 input: [
-                    "src/Resources/assets/css/admin.css",
+                    "src/Resources/assets/css/app.css",
                     "src/Resources/assets/js/app.js",
                 ],
                 refresh: true,

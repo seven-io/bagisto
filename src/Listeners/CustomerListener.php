@@ -10,14 +10,14 @@ readonly class CustomerListener extends AbstractListener {
         if (!$this->hasPhone($customer)) return;
         $text = $this->configuration->getAfterRegistrationText();
         if (empty($text)) {
-            Log::debug('seven: text not set for customer::afterRegistration');
+            Log::debug('seven: text not set for CustomerListener::afterRegistration');
             return;
         }
 
         $from = $this->configuration->getSmsFrom();
         $smsParams = compact('from', 'text');
         $res = $this->seven->sms([$customer], $smsParams);
-        Log::debug('seven: sent message for customer::afterRegistration', $res);
+        Log::debug('seven: sent message for CustomerListener::afterRegistration', $res);
     }
 
     /** @noinspection PhpUnused */
@@ -25,14 +25,14 @@ readonly class CustomerListener extends AbstractListener {
         if (!$this->hasPhone($customer)) return;
         $text = $this->configuration->getAfterPasswordUpdateText();
         if (empty($text)) {
-            Log::debug('seven: text not set for customer::afterPasswordUpdate');
+            Log::debug('seven: text not set for CustomerListener::afterPasswordUpdate');
             return;
         }
 
         $from = $this->configuration->getSmsFrom();
         $smsParams = compact('from', 'text');
         $res = $this->seven->sms([$customer], $smsParams);
-        Log::debug('seven: sent message for customer::afterPasswordUpdate', $res);
+        Log::debug('seven: sent message for CustomerListener::afterPasswordUpdate', $res);
     }
 }
 

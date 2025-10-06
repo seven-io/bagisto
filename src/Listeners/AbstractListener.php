@@ -19,7 +19,10 @@ abstract readonly class AbstractListener {
     protected function hasPhone(Customer $customer): bool {
         $phone = $customer->getAttribute('phone');
         if (empty($phone)) {
-            Log::debug('seven: phone not set for afterRegistration');
+            $class = get_class($this);
+            $fn = debug_backtrace()[1]['function'];
+            $identifier = $class . '@' . $fn;
+            Log::debug('seven: phone not set for ' . $identifier);
             return false;
         }
 

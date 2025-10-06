@@ -71,11 +71,9 @@ configuration form due to technical limitations.
 ## Usage
 
 ### Send SMS to a Customer
-
 View a customer and use the *Send SMS* card.
 
 ### Send SMS to all Customers
-
 Click on the *seven* admin menu entry and use the form.
 
 ### Event-based messaging
@@ -83,6 +81,9 @@ You can send messages after certain events happen.
 
 #### After registration
 Send message after a customer has registered.
+> [!IMPORTANT]
+> This event does not fire with the default registration template, 
+> as it doesn't have a phone number field.
 
 #### After password change
 Send message after a customer has changed its password.

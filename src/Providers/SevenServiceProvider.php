@@ -18,7 +18,13 @@ class SevenServiceProvider extends ServiceProvider {
         $this->loadRoutesFrom(__DIR__ . '/../Routes/admin-routes.php');
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'seven');
         $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'seven');
+        $this->publishes([
+            __DIR__ . '/../../publishable/assets' => public_path('seven/build'),
+        ], 'public');
 
+        Event::listen('admin.layout.head.before', function ($viewRenderEventManager) {
+            $viewRenderEventManager->addTemplate('seven::style');
+        });
         Event::listen('bagisto.admin.customers.customers.view.card.notes.after',
             function (ViewRenderEventManager $viewRenderEventManager) {
                 $viewRenderEventManager->addTemplate('seven::customer.view');
@@ -28,7 +34,9 @@ class SevenServiceProvider extends ServiceProvider {
             Event::listen('customer.registration.after', 'Seven\Bagisto\Listeners\CustomerListener@afterRegistration');
         }
         if (!empty($configuration->getAfterPasswordUpdateText())) {
-            Event::listen('customer.password.update.after', 'Seven\Bagisto\Listeners\CustomerListener@afterPasswordUpdate');
+            Event::listen(
+                'customer.password.update.after', 'Seven\Bagisto\Listeners\CustomerListener@afterPasswordUpdate'
+            );
         }
         if (!empty($configuration->getAfterSaveOrderText())) {
             Event::listen('checkout.order.save.after', 'Seven\Bagisto\Listeners\CheckoutListener@afterSaveOrder');
@@ -51,5 +59,9 @@ class SevenServiceProvider extends ServiceProvider {
         $this->mergeConfigFrom(dirname(__DIR__) . '/Config/admin-menu.php', 'menu.admin');
         $this->mergeConfigFrom(dirname(__DIR__) . '/Config/acl.php', 'acl');
         $this->mergeConfigFrom(dirname(__DIR__) . '/Config/system.php', 'core');
+        $this->mergeConfigFrom(
+            dirname(__DIR__) . '/Config/bagisto-vite.php',
+            'bagisto-vite.viters'
+        );
     }
 }
