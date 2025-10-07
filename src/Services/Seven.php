@@ -4,8 +4,10 @@ namespace Seven\Bagisto\Services;
 
 use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Facades\Log;
+use Webkul\Customer\Models\Customer;
 use Webkul\Customer\Repositories\CustomerRepository;
 
 class Seven {
@@ -27,6 +29,12 @@ class Seven {
         ]);
     }
 
+    /**
+     * @param Customer[] $customers
+     * @param array $smsParams
+     * @return array
+     * @throws GuzzleException
+     */
     public function sms(array $customers, array $smsParams): array {
         if (empty($customers)) {
             $error = __('seven::app.no_recipients');
@@ -40,31 +48,19 @@ class Seven {
 
             $errors = [];
             $requests = [];
-            $matches = [];
-            preg_match_all('{{{+[a-z]*_*[a-z]+}}}', $text, $matches);
-            $hasPlaceholders = is_array($matches) && !empty($matches[0]);
+            $textGenerator = new TextGenerator($text);
 
-            if ($hasPlaceholders) foreach ($customers as $person) {
-                $pText = $text;
-
-                foreach ($matches[0] as $match) {
-                    $key = trim($match, '{}');
-                    $replace = '';
-                    $attr = $person->getAttribute($key);
-                    if ($attr) $replace = $attr;
-                    $pText = str_replace($match, $replace, $pText);
-                    $pText = preg_replace('/\s+/', ' ', $pText);
-                    $pText = str_replace(' ,', ',', $pText);
+            if ($textGenerator->hasPlaceholders) {
+                foreach ($customers as $customer) {
+                    $requests[] = [
+                        'text' => $textGenerator->replace($customer),
+                        'to' => $this->getCustomersNumbers($customer),
+                    ];
                 }
-
-                $requests[] = [
-                    'text' => $pText,
-                    'to' => $this->getCustomersNumbers($person),
-                ];
             }
             else $requests[] = [
                 'text' => $text,
-                'to' => $this->getCustomersNumbers(...$customers),
+                'to' => $smsParams['to'] ?? $this->getCustomersNumbers(...$customers),
             ];
 
             foreach ($requests as $req) {
