@@ -54,7 +54,7 @@ class Seven {
                 foreach ($customers as $customer) {
                     $requests[] = [
                         'text' => $textGenerator->replace($customer),
-                        'to' => $this->getCustomersNumbers($customer),
+                        'to' => $smsParams['to'] ?? $this->getCustomersNumbers($customer),
                     ];
                 }
             }

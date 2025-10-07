@@ -11,9 +11,10 @@ readonly class TextGenerator {
     public array $matches;
 
     public function __construct(public string $text) {
-        $this->matches = [];
-        preg_match_all('{{{+[a-z]*_*[a-z]+}}}', $this->text, $this->matches);
-        $this->hasPlaceholders = !empty($this->matches[0]);
+        $matches = [];
+        preg_match_all('{{{+[a-z]*_*[a-z]+}}}', $this->text, $matches);
+        $this->hasPlaceholders = !empty($matches[0]);
+        $this->matches = $matches;
     }
 
     public function replace(Customer|OrderAddress|Order $object): string {
