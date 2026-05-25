@@ -10,6 +10,14 @@ updates:
       interval: "weekly"
       day: "monday"
     open-pull-requests-limit: 5
+    # Supply-chain hardening: delay new releases so yanked/compromised
+    # packages (e.g. nx 2024, shai-hulud worm 2025) get detected upstream
+    # before we bump. Security-advisory updates are NOT delayed by cooldown.
+    cooldown:
+      default-days: 5
+      semver-major-days: 14
+      semver-minor-days: 7
+      semver-patch-days: 3
     groups:
       security-all:
         applies-to: security-updates
@@ -27,6 +35,11 @@ updates:
       interval: "weekly"
       day: "monday"
     open-pull-requests-limit: 5
+    cooldown:
+      default-days: 5
+      semver-major-days: 14
+      semver-minor-days: 7
+      semver-patch-days: 3
     groups:
       security-all:
         applies-to: security-updates
@@ -35,3 +48,16 @@ updates:
         applies-to: version-updates
         patterns: ["*"]
         update-types: ["minor", "patch"]
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 2
+    cooldown:
+      default-days: 5
+      semver-major-days: 14
+      semver-minor-days: 7
+      semver-patch-days: 3
+    groups:
+      actions-all:
+        patterns: ["*"]
